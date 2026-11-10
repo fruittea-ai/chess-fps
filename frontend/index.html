@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Chess FPS - Sci-Fi Multiplayer</title>
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+</head>
+<body>
+    <!-- UI Papan Catur -->
+    <div id="ui-layer">
+        <h2>3D Chess FPS</h2>
+        <div>
+            <button id="btn-create">Buat Room Baru</button>
+            <input type="text" id="room-code-input" placeholder="Masukkan Room Code">
+            <button id="btn-join">Join Room</button>
+        </div>
+        <div id="status-box">
+            <div>Status: <span id="status-text">Standby</span></div>
+            <div>Warna Kamu: <span id="player-color">-</span></div>
+            <div>Giliran: <span id="turn-text">-</span></div>
+            <div>Langkah: <span id="selected-square">-</span></div>
+            <div id="error-msg"></div>
+        </div>
+    </div>
+
+    <!-- HUD Mode FPS -->
+    <div id="fps-hud">
+        <div id="fps-instructions">KLIK LAYAR UNTUK MENGUNCI MOUSE | WASD: Gerak | KLIK KIRI: Tembak</div>
+        <div id="fps-timer">45s</div>
+        <div id="crosshair"></div>
+        <div id="hp-bars">
+            <div class="hp-card">
+                <div>HP KAMU (<span id="my-role">-</span>)</div>
+                <div class="hp-fill-bg"><div id="my-hp" class="hp-fill"></div></div>
+            </div>
+            <div class="hp-card">
+                <div>HP MUSUH</div>
+                <div class="hp-fill-bg"><div id="enemy-hp" class="hp-fill hp-enemy"></div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Canvas Rendering Container -->
+    <div id="canvas-container"></div>
+
+    <div id="notification-box"></div>
+
+    <!-- Skrip Game Modular -->
+    <script src="js/chess3d.js"></script>
+    <script src="js/fps.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

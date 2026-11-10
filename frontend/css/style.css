@@ -1,0 +1,243 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    user-select: none;
+}
+
+body {
+    background-color: #080a10;
+    color: #00f0ff;
+    overflow: hidden;
+}
+
+#canvas-container {
+    width: 100vw;
+    height: 100vh;
+    display: block;
+}
+
+/* Panel Menu Catur */
+#ui-layer {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(13, 17, 23, 0.9);
+    border: 1px solid #00f0ff;
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+    border-radius: 8px;
+    padding: 18px;
+    width: 320px;
+    backdrop-filter: blur(8px);
+    z-index: 10;
+}
+
+h2 {
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 4px;
+    color: #fff;
+    margin-bottom: 8px;
+}
+
+button {
+    width: 100%;
+    padding: 8px;
+    background: #00f0ff;
+    border: none;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-bottom: 6px;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: #00b8c4;
+    box-shadow: 0 0 10px #00f0ff;
+}
+
+#status-box {
+    margin-top: 10px;
+    padding: 10px;
+    background: #111622;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    border-left: 3px solid #00f0ff;
+}
+
+#error-msg {
+    color: #ff3366;
+    font-weight: bold;
+    display: none;
+    margin-top: 5px;
+}
+
+/* HUD Mode FPS */
+#fps-hud {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 20;
+}
+
+#crosshair {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 14px;
+    height: 14px;
+    border: 2px solid #00f0ff;
+    border-radius: 50%;
+}
+
+#crosshair::after {
+    content: '';
+    position: absolute;
+    top: 4px; 
+    left: 4px;
+    width: 2px; 
+    height: 2px;
+    background: #00f0ff;
+}
+
+#hp-bars {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 40px;
+    background: rgba(0, 0, 0, 0.65);
+    padding: 12px 25px;
+    border-radius: 8px;
+    border: 1px solid #333;
+}
+
+.hp-card {
+    text-align: center;
+}
+
+.hp-fill-bg {
+    width: 180px;
+    height: 14px;
+    background: #222;
+    border-radius: 7px;
+    overflow: hidden;
+    border: 1px solid #555;
+    margin-top: 5px;
+}
+
+.hp-fill {
+    height: 100%;
+    width: 100%;
+    background: #00f0ff;
+    transition: width 0.2s;
+}
+
+.hp-enemy {
+    background: #ff0055;
+}
+
+#fps-instructions {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 0, 85, 0.85);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+#fps-timer {
+    position: absolute;
+    top: 65px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2rem;
+    font-weight: 800;
+    color: #ff0055;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 4px 18px;
+    border-radius: 8px;
+    border: 1px solid #ff0055;
+    box-shadow: 0 0 15px rgba(255, 0, 85, 0.4);
+    letter-spacing: 2px;
+}
+
+/* In-Game Sci-Fi Toast Notification */
+#notification-box {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 999;
+    pointer-events: none;
+}
+
+.toast {
+    min-width: 260px;
+    max-width: 380px;
+    padding: 12px 18px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    transform: translateX(50px);
+    transition: all 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.toast-error {
+    background: rgba(40, 10, 20, 0.92);
+    border-left: 4px solid #ff0055;
+    color: #ff3366;
+    border: 1px solid rgba(255, 0, 85, 0.4);
+}
+
+.toast-info {
+    background: rgba(10, 25, 40, 0.92);
+    border-left: 4px solid #00f0ff;
+    color: #00f0ff;
+    border: 1px solid rgba(0, 240, 255, 0.4);
+}
+
+.toast-success {
+    background: rgba(10, 35, 25, 0.92);
+    border-left: 4px solid #00ff88;
+    color: #00ff88;
+    border: 1px solid rgba(0, 255, 136, 0.4);
+}

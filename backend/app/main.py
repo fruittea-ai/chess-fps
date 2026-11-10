@@ -1,10 +1,13 @@
 import uuid
 import asyncio
 import chess
+from fastapi.staticfiles import StaticFiles
+import os
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Dict
+
 
 app = FastAPI(title="3D Chess FPS API")
 
@@ -23,9 +26,9 @@ class RoomResponse(BaseModel):
     player_id: str
     color: str
 
-@app.get("/")
-def read_root():
-    return {"name": "3D Chess FPS API", "status": "running"}
+# @app.get("/")
+# def read_root():
+#     return {"name": "3D Chess FPS API", "status": "running"}
 
 @app.post("/rooms", response_model=RoomResponse)
 def create_room():
@@ -268,3 +271,7 @@ async def websocket_endpoint(websocket: WebSocket, room_id: str, player_id: str)
                 "type": "PLAYER_LEFT",
                 "message": f"Pemain ({player_color.upper()}) telah keluar dari room."
             })
+
+# Mount folder frontend sebagai file statis
+frontend_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../frontend"))
+app.mount("/", StaticFiles(directory=frontend_dir, html=True), name="frontend")
